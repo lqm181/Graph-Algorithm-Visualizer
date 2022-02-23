@@ -1,10 +1,12 @@
 class Graph {
-
+    
     constructor (numNodes, isDirected, isSelfEdged) 
     {
         this.numNodes = numNodes;
         this.adjList = new Map();
         this.V = [];
+        this.nodes = [];
+        this.edges = [];
 
         // Conditions
         this.isDirected = isDirected;
@@ -29,7 +31,8 @@ class Graph {
         for (let i = 1; i <= this.numNodes; i++) {
             // The possible number of edges for node
             let freeEdges = Math.floor(Math.random() * this.MAX_EDGES_PER_NODE);
-            this.V.push(new Node(i, freeEdges));           
+            this.V.push(new Node(i, freeEdges)); 
+            this.nodes.push(nodeInfo(i));          
         }
 
         this.V.forEach((node) => this.createEdges(node));
@@ -58,6 +61,7 @@ class Graph {
             if (neighbor.freeEdges > 0) {
                 // Valid neighbor
                 this.adjList.get(node).set(neighbor, new Edge(node, neighbor));
+                this.edges.push(edgeInfo(node, neighbor))
 
                 // For undirected graph: edge(u,v) -> edge(v,u)
                 if (!this.isDirected) {
@@ -84,6 +88,26 @@ class Node {
 
 }
 
+// Create a dictionary storing the info of the node for drawing with vis.js
+function nodeInfo (id) { 
+    return {
+        id: id,
+        label: id.toString() 
+     };
+}
+
+/** 
+ * Create a dictionary storing the info of the edge between 2 nodes u and v
+ * @param u is a Node object
+ * @param v is a Node object representing one of u's neighbors
+ */
+function edgeInfo(u,v) {
+    return {
+        from: u.id, 
+        to: v.id
+    };
+}
+
 class Edge {
 
     constructor (u, v) 
@@ -95,5 +119,4 @@ class Edge {
 
 }
 
-let G = new Graph(5, false, false);
-console.log(G.adjList);
+let G = new Graph(10, false, false);
