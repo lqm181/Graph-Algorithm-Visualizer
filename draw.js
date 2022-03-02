@@ -1,16 +1,20 @@
 // create an array with nodes
-var nodes = new vis.DataSet(G.nodes);
-console.log(G.nodes);
+let nodes = new vis.DataSet(G.nodes);
+//console.log(G.nodes);
 
 // create an array with edges
-var edges = new vis.DataSet(G.edges);
-console.log(G.edges)
+let edges = new vis.DataSet(G.edges);
+//console.log(G.edges)
 
 // create a network
-var container = document.getElementById("mynetwork");
-var data = {
+let container = document.getElementById("mynetwork");
+let data = {
 nodes: nodes,
 edges: edges,
 };
-var options = {};
-var network = new vis.Network(container, data, options);
+let options = {};
+let network = new vis.Network(container, data, options);
+
+network.selectNodes([1,2], false);
+network.selectEdges(["(1,2)"]);
+console.log(network.getSelection());

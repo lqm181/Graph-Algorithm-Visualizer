@@ -92,7 +92,11 @@ class Node {
 function nodeInfo (id) { 
     return {
         id: id,
-        label: id.toString() 
+        label: id.toString(),
+        color: {
+            background: "white", 
+            border: "black"
+        }
      };
 }
 
@@ -104,7 +108,9 @@ function nodeInfo (id) {
 function edgeInfo(u,v) {
     return {
         from: u.id, 
-        to: v.id
+        to: v.id,
+        id: "(" + u.id.toString() + "," + v.id.toString() + ")",
+        color: "black"
     };
 }
 
